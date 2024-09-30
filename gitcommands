@@ -1,1 +1,23 @@
-git -v
+pipeline {
+    agent {
+        label 'java-agent-slave'
+    }
+    stages {
+        stage ('Parallel tasks') {
+            parallel {
+                stage ('Sonar') {
+                    steps {
+                       echo 'Sonar completed'
+                       sleep 10
+                    }
+                }
+                stage ('DockerImage') {
+                    steps {
+                        echo "Docker completed"
+                        sleep 10
+                    }
+                }
+            }
+        }
+    }
+}
